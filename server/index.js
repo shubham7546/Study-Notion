@@ -30,7 +30,7 @@ app.use(cookieParser());//to parse cookies that is coming from client
 //to let the client share resources with the server
 app.use(
 	cors({
-		origin: "http://localhost:3000",
+		origin: process.env.CLIENT_URL,
 		credentials: true,
 	})
 )
