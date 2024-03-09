@@ -1,7 +1,7 @@
-import { useEffect, useRef, useState } from "react"
+import { useEffect,/* useRef,*/ useState } from "react"
 import { useDropzone } from "react-dropzone"
 import { FiUploadCloud } from "react-icons/fi"
-import { useSelector } from "react-redux"
+// import { useSelector } from "react-redux"
 
 import "video-react/dist/video-react.css"
 import { Player } from "video-react"
@@ -16,18 +16,31 @@ export default function Upload({
   viewData = null,
   editData = null,
 }) {
-  const { course } = useSelector((state) => state.course)
+
   const [selectedFile, setSelectedFile] = useState(null)
+  // previewSource supposed to have a DataURL of current file not the file itself
   const [previewSource, setPreviewSource] = useState(
-    viewData ? viewData : editData ? editData : ""
+    // viewData ? viewData : editData ? editData : ""
+    // following line should do the same job
+    viewData || editData || ""
   )
-  const inputRef = useRef(null)
+
+
+
 
   const onDrop = (acceptedFiles) => {
     const file = acceptedFiles[0]
     if (file) {
       previewFile(file)
       setSelectedFile(file)
+    }
+  }
+
+  const previewFile = (file) => {
+    const reader = new FileReader()
+    reader.readAsDataURL(file)
+    reader.onload = () => {
+      setPreviewSource(reader.result)
     }
   }
 
@@ -38,24 +51,30 @@ export default function Upload({
     onDrop,
   })
 
-  const previewFile = (file) => {
-    // console.log(file)
-    const reader = new FileReader()
-    reader.readAsDataURL(file)
-    reader.onloadend = () => {
-      setPreviewSource(reader.result)
-    }
-  }
 
-  useEffect(() => {
-    register(name, { required: true })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [register])
+  // registering in getInputProps
+  // useEffect(() => {
+  //   register(name, { required: true })
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [register])
 
   useEffect(() => {
     setValue(name, selectedFile)
+    if (selectedFile) {
+      const reader = new FileReader()
+      reader.readAsDataURL(selectedFile)
+      reader.onloadend = () => {
+        setPreviewSource(reader.result)
+      }
+    }
+    else {
+      setPreviewSource(selectedFile || "")
+    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedFile, setValue])
+  }, [selectedFile])
+
+  console.log("selectedFile", selectedFile);
 
   return (
     <div className="flex flex-col space-y-2">
@@ -63,9 +82,8 @@ export default function Upload({
         {label} {!viewData && <sup className="text-pink-200">*</sup>}
       </label>
       <div
-        className={`${
-          isDragActive ? "bg-richblack-600" : "bg-richblack-700"
-        } flex min-h-[250px] cursor-pointer items-center justify-center rounded-md border-2 border-dotted border-richblack-500`}
+        className={`${isDragActive ? "bg-richblack-600" : "bg-richblack-700"
+          } flex min-h-[250px] cursor-pointer items-center justify-center rounded-md border-2 border-dotted border-richblack-500`}
       >
         {previewSource ? (
           <div className="flex w-full flex-col p-6">
@@ -82,9 +100,9 @@ export default function Upload({
               <button
                 type="button"
                 onClick={() => {
-                  setPreviewSource("")
+                  // setPreviewSource("")
                   setSelectedFile(null)
-                  setValue(name, null)
+                  // setValue(name, null)
                 }}
                 className="mt-3 text-richblack-400 underline"
               >
@@ -94,12 +112,13 @@ export default function Upload({
           </div>
         ) : (
           <div
-            className="flex w-full flex-col items-center p-6"
+            className="flex w-full flex-col items-center p-6 "
             {...getRootProps()}
+
           >
-            <input {...getInputProps()} ref={inputRef} />
+            <input {...register(name, { required: true })} {...getInputProps()} />
             <div className="grid aspect-square w-14 place-items-center rounded-full bg-pure-greys-800">
-              <FiUploadCloud className="text-2xl text-yellow-50" />
+              <FiUploadCloud className="text-2xl text-yellow-500" />
             </div>
             <p className="mt-2 max-w-[200px] text-center text-sm text-richblack-200">
               Drag and drop an {!video ? "image" : "video"}, or click to{" "}

@@ -9,6 +9,7 @@ dotenv.config();
 exports.auth = async (req, res, next) => {
 	try {
 		// Extracting JWT from request cookies, body or header
+		console.log("inside auth")
 		const token =
 			req.cookies.token ||
 			req.body.token ||
@@ -78,6 +79,7 @@ exports.isAdmin = async (req, res, next) => {
 };
 exports.isInstructor = async (req, res, next) => {
 	try {
+		console.log("inside isInstructor")
 		const userDetails = await User.findOne({ email: req.user.email });
 		console.log(userDetails);
 

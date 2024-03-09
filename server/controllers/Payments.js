@@ -18,6 +18,8 @@ exports.capturePayment = async (req, res) => {
     return res.json({ success: false, message: "Please Provide Course ID" })
   }
 
+  console.log("inside capturePayment");
+
   let total_amount = 0
 
   for (const course_id of courses) {
@@ -35,7 +37,10 @@ exports.capturePayment = async (req, res) => {
 
       // Check if the user is already enrolled in the course
       const uid = new mongoose.Types.ObjectId(userId)
-      if (course.studentsEnroled.includes(uid)) {
+      console.log("uid", uid);
+      console.log("course.studentsEnrolled", course.studentsEnrolled);
+      if (course.studentsEnrolled.includes(uid)) {
+        console.log("already enrolled");
         return res
           .status(200)
           .json({ success: false, message: "Student is already Enrolled" })
@@ -73,6 +78,7 @@ exports.capturePayment = async (req, res) => {
 
 // verify the payment
 exports.verifyPayment = async (req, res) => {
+  console.log("inside verify payemet");
   const razorpay_order_id = req.body?.razorpay_order_id
   const razorpay_payment_id = req.body?.razorpay_payment_id
   const razorpay_signature = req.body?.razorpay_signature
@@ -138,8 +144,11 @@ exports.sendPaymentSuccessEmail = async (req, res) => {
   }
 }
 
+
 // enroll the student in the courses
 const enrollStudents = async (courses, userId, res) => {
+
+
   if (!courses || !userId) {
     return res
       .status(400)
@@ -151,7 +160,7 @@ const enrollStudents = async (courses, userId, res) => {
       // Find the course and enroll the student in it
       const enrolledCourse = await Course.findOneAndUpdate(
         { _id: courseId },
-        { $push: { studentsEnroled: userId } },
+        { $push: { studentsEnrolled: userId } },
         { new: true }
       )
 

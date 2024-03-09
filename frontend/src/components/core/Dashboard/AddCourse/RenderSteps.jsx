@@ -27,18 +27,19 @@ export default function RenderSteps() {
   return (
     <>
       <div className="relative mb-2 flex w-full justify-center">
+        {/* add course ke progress bar ka logic */}
         {steps.map((item) => (
           <>
+            {/* for step number */}
             <div
               className="flex flex-col items-center "
               key={item.id}
             >
               <button
-                className={`grid cursor-default aspect-square w-[34px] place-items-center rounded-full border-[1px] ${
-                  step === item.id
-                    ? "border-yellow-50 bg-yellow-900 text-yellow-50"
-                    : "border-richblack-700 bg-richblack-800 text-richblack-300"
-                } ${step > item.id && "bg-yellow-50 text-yellow-50"}} `}
+                className={`grid cursor-default aspect-square w-[34px] place-items-center rounded-full border-[1px] ${step === item.id
+                  ? "border-yellow-50 bg-yellow-900 text-yellow-50"
+                  : "border-richblack-700 bg-richblack-800 text-richblack-300"
+                  } ${step > item.id && "bg-yellow-50 text-yellow-50"}} `}
               >
                 {step > item.id ? (
                   <FaCheck className="font-bold text-richblack-900" />
@@ -46,14 +47,16 @@ export default function RenderSteps() {
                   item.id
                 )}
               </button>
-              
+
             </div>
+            {/* for dashes(-----) after step number */}
+            {/* for item.id ==1 and 2 dono ke liye dashes bnengi pr 3 ke liye nhi as conditioned below */}
             {item.id !== steps.length && (
               <>
+                {/* jis step pe abhi h usse pehle ki dashes yellow dikhengi as conditioned step > item.id */}
                 <div
-                  className={`h-[calc(34px/2)] w-[33%]  border-dashed border-b-2 ${
-                  step > item.id  ? "border-yellow-50" : "border-richblack-500"
-                } `}
+                  className={`h-[calc(34px/2)] w-[33%]  border-dashed border-b-2 ${step > item.id ? "border-yellow-50" : "border-richblack-500"
+                    } `}
                 ></div>
               </>
             )}
@@ -61,30 +64,30 @@ export default function RenderSteps() {
         ))}
       </div>
 
-      <div className="relative mb-16 flex w-full select-none justify-between">
+      {/* for adding name of step below the step number */}
+      <div className="mb-16 flex w-full select-none justify-between">
         {steps.map((item) => (
           <>
             <div
-              className="flex min-w-[130px] flex-col items-center gap-y-2"
+              className="min-w-[130px] text-center gap-y-2"
               key={item.id}
             >
-              
+
               <p
-                className={`text-sm ${
-                  step >= item.id ? "text-richblack-5" : "text-richblack-500"
-                }`}
+                className={`text-sm ${step >= item.id ? "text-richblack-5" : "text-richblack-500"
+                  }`}
               >
                 {item.title}
               </p>
             </div>
-            
+
           </>
         ))}
       </div>
       {/* Render specific component based on current step */}
       {step === 1 && <CourseInformationForm />}
       {step === 2 && <CourseBuilderForm />}
-      {step === 3 &&  <PublishCourse /> }
+      {step === 3 && <PublishCourse />}
     </>
   )
 }

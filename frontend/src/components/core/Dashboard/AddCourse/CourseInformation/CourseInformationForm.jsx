@@ -5,6 +5,7 @@ import { HiOutlineCurrencyRupee } from "react-icons/hi"
 import { MdNavigateNext } from "react-icons/md"
 import { useDispatch, useSelector } from "react-redux"
 
+
 import {
   addCourseDetails,
   editCourseDetails,
@@ -16,6 +17,7 @@ import IconBtn from "../../../../common/IconBtn"
 import Upload from "../Upload"
 import ChipInput from "./ChipInput"
 import RequirementsField from "./RequirementField"
+
 
 export default function CourseInformationForm() {
   const {
@@ -30,9 +32,14 @@ export default function CourseInformationForm() {
   const { token } = useSelector((state) => state.auth)
   const { course, editCourse } = useSelector((state) => state.course)
   const [loading, setLoading] = useState(false)
+  // it will store all the course categories fetched from backend
   const [courseCategories, setCourseCategories] = useState([])
 
+
+
   useEffect(() => {
+
+    // responsibile for fetching catories from backend and setLoading when called
     const getCategories = async () => {
       setLoading(true)
       const categories = await fetchCourseCategories()
@@ -42,6 +49,7 @@ export default function CourseInformationForm() {
       }
       setLoading(false)
     }
+
     // if form is in edit mode
     if (editCourse) {
       // console.log("data populated", editCourse)
@@ -70,7 +78,7 @@ export default function CourseInformationForm() {
       currentValues.courseBenefits !== course.whatYouWillLearn ||
       currentValues.courseCategory._id !== course.category._id ||
       currentValues.courseRequirements.toString() !==
-        course.instructions.toString() ||
+      course.instructions.toString() ||
       currentValues.courseImage !== course.thumbnail
     ) {
       return true
