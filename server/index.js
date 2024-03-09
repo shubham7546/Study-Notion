@@ -16,7 +16,6 @@ const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const fileUpload = require("express-fileupload");
 const dotenv = require("dotenv");
-const Category = require("./models/Category");
 
 dotenv.config();
 const PORT = process.env.PORT || 4000;
