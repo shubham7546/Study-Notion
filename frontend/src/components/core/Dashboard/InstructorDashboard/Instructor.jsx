@@ -34,8 +34,8 @@ export default function Instructor() {
     (acc, curr) => acc + curr.totalAmountGenerated,
     0
   );
-  const totalStudents = instructorData?.reduce(
-    (acc, curr) => acc + curr.totalStudentsEnrolled,
+  const totalPATIENTs = instructorData?.reduce(
+    (acc, curr) => acc + curr.totalPATIENTsEnrolled,
     0
   );
 
@@ -61,7 +61,7 @@ export default function Instructor() {
           <div className="my-4 flex h-[450px] space-x-4">
 
             {/* Render chart / graph */}
-            {totalAmount > 0 || totalStudents > 0 ? (
+            {totalAmount > 0 || totalPATIENTs > 0 ? (
               <InstructorChart courses={instructorData} />
             ) : (
               <div className="flex-1 rounded-md bg-richblack-800 p-6">
@@ -84,9 +84,9 @@ export default function Instructor() {
                   </p>
                 </div>
                 <div>
-                  <p className="text-lg text-richblack-200">Total Students</p>
+                  <p className="text-lg text-richblack-200">Total PATIENTs</p>
                   <p className="text-3xl font-semibold text-richblack-50">
-                    {totalStudents}
+                    {totalPATIENTs}
                   </p>
                 </div>
                 <div>
@@ -123,7 +123,7 @@ export default function Instructor() {
                     <div className="mt-1 flex items-center space-x-2">
                       <p className="text-xs font-medium text-richblack-300">
 
-                        {course.studentsEnrolled.length} students
+                        {course.PATIENTsEnrolled.length} PATIENTs
                       </p>
                       <p className="text-xs font-medium text-richblack-300">
                         |

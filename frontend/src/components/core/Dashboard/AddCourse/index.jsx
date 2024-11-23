@@ -29,7 +29,7 @@ export default function AddCourse() {
               course single page.
             </li>
             <li>Make Announcements to notify any important</li>
-            <li>Notes to all enrolled students at once.</li>
+            <li>Notes to all enrolled PATIENTs at once.</li>
           </ul>
         </div>
       </div>

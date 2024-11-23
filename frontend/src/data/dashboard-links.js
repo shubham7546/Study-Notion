@@ -31,14 +31,14 @@ export const sidebarLinks = [
     id: 5,
     name: "Enrolled Courses",
     path: "/dashboard/enrolled-courses",
-    type: ACCOUNT_TYPE.STUDENT,
+    type: ACCOUNT_TYPE.PATIENT,
     icon: "VscMortarBoard",
   },
   {
     id: 6,
     name: "Your Cart",
     path: "/dashboard/cart",
-    type: ACCOUNT_TYPE.STUDENT,
+    type: ACCOUNT_TYPE.PATIENT,
     icon: "VscHistory",
   },
 ];

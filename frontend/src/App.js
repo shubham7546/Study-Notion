@@ -107,13 +107,13 @@ function App() {
           }
         >
           {/* child paths and their respective components */}
-          {/* common for student and instructor */}
+          {/* common for PATIENT and instructor */}
           <Route path="my-profile" element={<MyProfile />} />
           <Route path="Settings" element={<Settings />} />
 
-          {/* specific for student */}
+          {/* specific for PATIENT */}
           {
-            user?.accountType === ACCOUNT_TYPE.STUDENT && (
+            user?.accountType === ACCOUNT_TYPE.PATIENT && (
               <>
                 <Route path="cart" element={<Cart />} />
                 <Route path="enrolled-courses" element={<EnrolledCourses />} />
@@ -142,7 +142,7 @@ function App() {
         }>
 
           {
-            user?.accountType === ACCOUNT_TYPE.STUDENT && (
+            user?.accountType === ACCOUNT_TYPE.PATIENT && (
               <>
                 <Route
                   path="view-course/:courseId/section/:sectionId/sub-section/:subSectionId"

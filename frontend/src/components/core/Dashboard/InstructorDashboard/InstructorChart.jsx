@@ -6,7 +6,7 @@ Chart.register(...registerables)
 
 export default function InstructorChart({ courses }) {
   // State to keep track of the currently selected chart
-  const [currChart, setCurrChart] = useState("students")
+  const [currChart, setCurrChart] = useState("PATIENTs")
 
   // Function to generate random colors for the chart
   const generateRandomColors = (numColors) => {
@@ -20,12 +20,12 @@ export default function InstructorChart({ courses }) {
     return colors
   }
 
-  // Data for the chart displaying student information
-  const chartDataStudents = {
+  // Data for the chart displaying PATIENT information
+  const chartDataPATIENTs = {
     labels: courses.map((course) => course.courseName),
     datasets: [
       {
-        data: courses.map((course) => course.totalStudentsEnrolled),
+        data: courses.map((course) => course.totalPATIENTsEnrolled),
         backgroundColor: generateRandomColors(courses.length),
       },
     ],
@@ -51,25 +51,23 @@ export default function InstructorChart({ courses }) {
     <div className="flex flex-1 flex-col gap-y-4 rounded-md bg-richblack-800 p-6">
       <p className="text-lg font-bold text-richblack-5">Visualize</p>
       <div className="space-x-4 font-semibold">
-        {/* Button to switch to the "students" chart */}
+        {/* Button to switch to the "PATIENTs" chart */}
         <button
-          onClick={() => setCurrChart("students")}
-          className={`rounded-sm p-1 px-3 transition-all duration-200 ${
-            currChart === "students"
+          onClick={() => setCurrChart("PATIENTs")}
+          className={`rounded-sm p-1 px-3 transition-all duration-200 ${currChart === "PATIENTs"
               ? "bg-richblack-700 text-yellow-50"
               : "text-yellow-400"
-          }`}
+            }`}
         >
-          Students
+          PATIENTs
         </button>
         {/* Button to switch to the "income" chart */}
         <button
           onClick={() => setCurrChart("income")}
-          className={`rounded-sm p-1 px-3 transition-all duration-200 ${
-            currChart === "income"
+          className={`rounded-sm p-1 px-3 transition-all duration-200 ${currChart === "income"
               ? "bg-richblack-700 text-yellow-50"
               : "text-yellow-400"
-          }`}
+            }`}
         >
           Income
         </button>
@@ -77,7 +75,7 @@ export default function InstructorChart({ courses }) {
       <div className="relative mx-auto aspect-square h-full w-full">
         {/* Render the Pie chart based on the selected chart */}
         <Pie
-          data={currChart === "students" ? chartDataStudents : chartIncomeData}
+          data={currChart === "PATIENTs" ? chartDataPATIENTs : chartIncomeData}
           options={options}
         />
       </div>
